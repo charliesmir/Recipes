@@ -1,5 +1,6 @@
 import { Link } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
+import { Button } from '../components/Button';
 
 export default function HomeScreen() {
   return (
@@ -14,6 +15,8 @@ export default function HomeScreen() {
           pathname: '/recipe/[id]',
           params: { id: '2' },
         }}>Add recipe 2</Link>
+      <Link href="./storybook">storybook</Link>
+      <Button label={'test'}/>
     </View>
   );
 }
