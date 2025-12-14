@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function AddScreen() {
+export default function ListScreen() {
+
   return (
     <View style={styles.container}>
-      <Text>Details</Text>
+      <Text> Shopping list </Text>
     </View>
   );
 }

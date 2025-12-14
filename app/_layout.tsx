@@ -14,7 +14,6 @@ export default function RootLayout() {
         headerShown: false,
       }}>
       <Stack.Screen name="index" />
-      <Stack.Screen name="add" />
       <Stack.Screen name="recipe/[id]" />
       <Stack.Protected guard={__DEV__}>
         <Stack.Screen name="storybook" options={{headerShown: false}}/>

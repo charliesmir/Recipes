@@ -6,15 +6,16 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text>Home</Text>
-      <Link href="/add">Add recipe</Link>
+      <Link href="/recipe/[id]/edit">Add recipe</Link>
       <Link href={{
           pathname: '/recipe/[id]',
           params: { id: '1' },
-        }}>Add recipe 1</Link>
+        }}>Recipe 1</Link>
       <Link href={{
           pathname: '/recipe/[id]',
           params: { id: '2' },
-        }}>Add recipe 2</Link>
+        }}>Recipe 2</Link>
+        <Link href="/list">List</Link>
       <Link href="./storybook">storybook</Link>
       <Button label={'test'}/>
     </View>
