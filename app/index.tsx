@@ -1,20 +1,30 @@
-import { Link } from 'expo-router';
+import { useStore } from '@/adapters/zustand/store';
+import { Link, useRouter } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from '../components/Button';
 
 export default function HomeScreen() {
+
+  const router = useRouter();
+  const { recipes, addRecipe } = useStore();
+  const createRecipe = () => {
+    const id = addRecipe();
+    router.push({pathname: '/recipe/[id]/edit', params: { id }});
+  };
+
   return (
     <View style={styles.container}>
       <Text>Home</Text>
-      <Link href="/recipe/[id]/edit">Add recipe</Link>
-      <Link href={{
-          pathname: '/recipe/[id]',
-          params: { id: '1' },
-        }}>Recipe 1</Link>
-      <Link href={{
-          pathname: '/recipe/[id]',
-          params: { id: '2' },
-        }}>Recipe 2</Link>
+      {/* <Link href="/recipe/[id]/edit">Add recipe</Link> */}
+      <Button label={'Add recipe'} onPress={createRecipe} />
+      {recipes.map((recipe) => (
+        <Link
+          key={recipe.id}
+          href={{ pathname: '/recipe/[id]', params: { id: recipe.id } }}
+        >
+          <Text>{`Recipe ${recipe.id}`}</Text>
+        </Link>
+      ))}
         <Link href="/list">List</Link>
       <Link href="./storybook">storybook</Link>
       <Button label={'test'}/>
