@@ -1,8 +1,8 @@
 export interface Store {
-recipes: Recipe[];
-addRecipe: () => string;
-deleteRecipe: (id: string) => void;
-updateRecipe: (id: string, updatedFields: Partial<Recipe>) => void;
+  recipes: Recipe[];
+  addRecipe: () => string;
+  deleteRecipe: (id: string) => void;
+  updateRecipe: (id: string, updatedFields: Partial<Recipe>) => void;
 }
 
 export type Recipe = {
@@ -22,4 +22,3 @@ type Ingredient = {
 };
 
 type Unit = "g" | "kg" | "ml" | "l" | "pcs";
-

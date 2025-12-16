@@ -1,8 +1,8 @@
-import { useStore } from '@/adapters/zustand/store';
-import { Button } from '@/components/Button';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useStore } from "@/adapters/zustand/store";
+import { Button } from "@/components/Button";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function RecipeScreen() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function RecipeScreen() {
         <Text>Deleting recipe...</Text>
       </View>
     );
-  };
+  }
 
   if (!recipe) {
     return (
@@ -25,12 +25,12 @@ export default function RecipeScreen() {
         <Text>Recipe not found</Text>
       </View>
     );
-  };
+  }
 
   const handleDeleteRecipe = () => {
     setIsDeleting(true);
     deleteRecipe(recipe.id);
-    router.replace('/');
+    router.replace("/");
   };
 
   return (
@@ -38,9 +38,17 @@ export default function RecipeScreen() {
       <Text>Details of recipe {id} </Text>
       <Text>Title: {recipe.title}</Text>
       <Text>Image: {recipe.image}</Text>
-      <Text>Ingredients: {recipe.ingredients.map(ingredient => ingredient.name).join(', ')}</Text>
-      <Text>Instructions: {recipe.instructions ? recipe.instructions : 'N/A'}</Text>
-    <Button label="Edit Recipe" onPress={() => router.push(`/recipe/${id}/edit`)} />
+      <Text>
+        Ingredients:{" "}
+        {recipe.ingredients.map((ingredient) => ingredient.name).join(", ")}
+      </Text>
+      <Text>
+        Instructions: {recipe.instructions ? recipe.instructions : "N/A"}
+      </Text>
+      <Button
+        label="Edit Recipe"
+        onPress={() => router.push(`/recipe/${id}/edit`)}
+      />
       <Button label="Delete Recipe" onPress={handleDeleteRecipe} />
     </View>
   );
@@ -49,7 +57,7 @@ export default function RecipeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
