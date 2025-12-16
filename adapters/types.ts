@@ -1,6 +1,7 @@
 export interface Store {
 recipes: Recipe[];
 addRecipe: () => string;
+deleteRecipe: (id: string) => void;
 }
 
 type Recipe = {

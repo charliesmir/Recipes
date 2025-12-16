@@ -16,6 +16,9 @@ export const useStore = create<Store>()(
             };
             set({ recipes: [...get().recipes, newRecipe] });
             return newRecipe.id;
+        },
+        deleteRecipe: (id: string) => {
+            set({ recipes: get().recipes.filter(recipe => recipe.id !== id) });
         }
     }),
      { 

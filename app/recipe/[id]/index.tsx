@@ -1,12 +1,42 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useStore } from '@/adapters/zustand/store';
+import { Button } from '@/components/Button';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function RecipeScreen() {
+  const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
   const { id } = useLocalSearchParams();
+  const { recipes, deleteRecipe } = useStore();
+  const recipe = recipes.find((recipe) => recipe.id === id);
+
+  if (isDeleting) {
+    return (
+      <View style={styles.container}>
+        <Text>Deleting recipe...</Text>
+      </View>
+    );
+  };
+
+  if (!recipe) {
+    return (
+      <View style={styles.container}>
+        <Text>Recipe not found</Text>
+      </View>
+    );
+  };
+
+  const handleDeleteRecipe = () => {
+    setIsDeleting(true);
+    deleteRecipe(recipe.id);
+    router.replace('/');
+  };
 
   return (
     <View style={styles.container}>
       <Text>Details of recipe {id} </Text>
+      <Button label="Delete Recipe" onPress={handleDeleteRecipe} />
     </View>
   );
 }
