@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { Store } from '../types';
+import { Recipe, Store } from '../types';
 
 export const useStore = create<Store>()(
     persist((set, get) => ({
@@ -10,6 +10,7 @@ export const useStore = create<Store>()(
             const newRecipe = {
                 id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
                 title: "",
+                image: "test image",
                 ingredients: [],
                 instructions: null,
                 isActive: false,
@@ -19,8 +20,13 @@ export const useStore = create<Store>()(
         },
         deleteRecipe: (id: string) => {
             set({ recipes: get().recipes.filter(recipe => recipe.id !== id) });
-        }
-    }),
+        },
+        updateRecipe: (id: string, updatedFields: Partial<Recipe>) => {
+            set({ recipes: get().recipes.map(recipe => 
+                recipe.id === id ? { ...recipe, ...updatedFields } : recipe
+            )});
+    },}
+),
      { 
         name: 'store', 
         storage:createJSONStorage(() => AsyncStorage), 

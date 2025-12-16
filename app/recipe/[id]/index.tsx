@@ -36,6 +36,11 @@ export default function RecipeScreen() {
   return (
     <View style={styles.container}>
       <Text>Details of recipe {id} </Text>
+      <Text>Title: {recipe.title}</Text>
+      <Text>Image: {recipe.image}</Text>
+      <Text>Ingredients: {recipe.ingredients.map(ingredient => ingredient.name).join(', ')}</Text>
+      <Text>Instructions: {recipe.instructions ? recipe.instructions : 'N/A'}</Text>
+    <Button label="Edit Recipe" onPress={() => router.push(`/recipe/${id}/edit`)} />
       <Button label="Delete Recipe" onPress={handleDeleteRecipe} />
     </View>
   );

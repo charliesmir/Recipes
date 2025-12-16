@@ -2,11 +2,13 @@ export interface Store {
 recipes: Recipe[];
 addRecipe: () => string;
 deleteRecipe: (id: string) => void;
+updateRecipe: (id: string, updatedFields: Partial<Recipe>) => void;
 }
 
-type Recipe = {
+export type Recipe = {
   id: string;
   title: string;
+  image: string;
   ingredients: Ingredient[];
   instructions: string | null;
   isActive: boolean;
