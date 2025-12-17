@@ -1,5 +1,6 @@
-import type { StyleProp, ViewStyle } from 'react-native';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import theme from "@/assets/theme/theme";
+import type { StyleProp, ViewStyle } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export interface ButtonProps {
   /** Is this the principal call to action on the page? */
@@ -8,7 +9,7 @@ export interface ButtonProps {
   /** What background color to use */
   backgroundColor?: string;
   /** How large should the button be? */
-  size?: 'normal';
+  size?: "normal";
   /** Button contents */
   label: string;
   /** Optional click handler */
@@ -20,7 +21,7 @@ export interface ButtonProps {
 export const SaveButton = ({
   isActive = true,
   onLight = true,
-  size = 'normal',
+  size = "normal",
   backgroundColor,
   label,
   style,
@@ -46,7 +47,11 @@ export const SaveButton = ({
   const textSizeStyle = textSizeStyles[size];
 
   return (
-    <TouchableOpacity accessibilityRole="button" activeOpacity={0.6} onPress={onPress}>
+    <TouchableOpacity
+      accessibilityRole="button"
+      activeOpacity={0.6}
+      onPress={onPress}
+    >
       <View
         style={[
           styles.button,
@@ -62,39 +67,40 @@ export const SaveButton = ({
   );
 };
 
-
 const styles = StyleSheet.create({
   button: {
     borderWidth: 0,
     borderRadius: 20,
   },
   buttonText: {
-    fontWeight: '500',
+    fontFamily: theme.fontFamily.accent,
     lineHeight: 1,
   },
   activeOnLight: {
-    backgroundColor: '#D07B1A',
+    backgroundColor: "#D07B1A",
   },
   activeOnDark: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
   },
   activeOnLightText: {
-    color: 'white',
+    // Testing the font family
+    fontFamily: theme.fontFamily.accent,
+    color: "white",
   },
   activeOnDarkText: {
-    color: '#A4651D',
+    color: "#A4651D",
   },
   notActiveOnLight: {
-    backgroundColor: '#ADA9A5',
+    backgroundColor: "#ADA9A5",
   },
   notActiveOnDark: {
-    backgroundColor: '#694216',
+    backgroundColor: "#694216",
   },
   notActiveOnLightText: {
-    color: 'white',
+    color: "white",
   },
   notActiveOnDarkText: {
-    color: '#A4651D',
+    color: "#A4651D",
   },
   normal: {
     paddingVertical: 10,
@@ -104,7 +110,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
 
 const textSizeStyles = {
   normal: styles.normalText,
