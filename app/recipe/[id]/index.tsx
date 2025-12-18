@@ -33,6 +33,15 @@ export default function RecipeScreen() {
     router.replace("/");
   };
 
+  const numberedInstructions = recipe.instructions
+    ? recipe.instructions
+        .split("\n")
+        .map((line, index) =>
+          line.trim() === "" ? "" : `${index + 1}. ${line}`,
+        )
+        .join("\n")
+    : "N/A";
+
   return (
     <View style={styles.container}>
       <Text>Details of recipe {id} </Text>
@@ -42,9 +51,7 @@ export default function RecipeScreen() {
         Ingredients:{" "}
         {recipe.ingredients.map((ingredient) => ingredient.name).join(", ")}
       </Text>
-      <Text>
-        Instructions: {recipe.instructions ? recipe.instructions : "N/A"}
-      </Text>
+      <Text>Instructions: {numberedInstructions}</Text>
       <Button
         label="Edit Recipe"
         onPress={() => router.push(`/recipe/${id}/edit`)}
