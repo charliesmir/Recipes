@@ -1,4 +1,5 @@
 import { useStore } from "@/adapters/zustand/store";
+import { ButtonSmall } from "@/components/atoms/buttonSmall";
 import { Button } from "@/components/Button";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
@@ -56,7 +57,7 @@ export default function RecipeScreen() {
         label="Edit Recipe"
         onPress={() => router.push(`/recipe/${id}/edit`)}
       />
-      <Button label="Delete Recipe" onPress={handleDeleteRecipe} />
+      <ButtonSmall variant={"delete"} onPress={handleDeleteRecipe} />
     </View>
   );
 }
