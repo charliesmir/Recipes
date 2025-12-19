@@ -1,6 +1,5 @@
 import theme from "@/assets/theme/theme";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { color } from "storybook/internal/theming";
 
 export type InputNameProps = {
   title: string;

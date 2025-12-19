@@ -87,8 +87,9 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: theme.fontFamily.main,
     fontSize: theme.fontSize.heading2,
-    height: 75,
+    height: 80,
     width: 165,
+    lineHeight: 20,
   },
   flag: {
     position: "absolute",
