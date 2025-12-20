@@ -14,7 +14,7 @@ import { ButtonSmall, ButtonSmallProps } from "../atoms/buttonSmall";
 
 export type RecipeInfoInputProps = {
   name: RecipeInputProps;
-  ingredients: IngredientInputProps;
+  ingredients: IngredientInputProps[];
   instructions: InstructionsInputProps;
   button: ButtonSmallProps;
   saveButton: ButtonSaveProps;
@@ -36,7 +36,9 @@ export const RecipeInfoInput = ({
         <Text style={styles.text}> Ingredients </Text>
         <ButtonSmall {...button} />
       </View>
-      <IngredientInput {...ingredients} />
+      {ingredients.map((ingredient, index) => (
+        <IngredientInput key={index} {...ingredient} />
+      ))}
       <Text style={styles.text}> Instructions </Text>
       <InstructionsInput {...instructions} />
     </View>
