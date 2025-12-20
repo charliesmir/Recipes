@@ -33,7 +33,8 @@ export default function RootLayout() {
           }}
         >
           <Stack.Screen name="index" />
-          <Stack.Screen name="recipe/[id]" />
+          <Stack.Screen name="recipe/[id]/index" />
+          <Stack.Screen name="recipe/[id]/edit" />
           <Stack.Protected guard={__DEV__}>
             <Stack.Screen name="storybook" options={{ headerShown: false }} />
           </Stack.Protected>
