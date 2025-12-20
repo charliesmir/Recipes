@@ -1,6 +1,5 @@
 import { useStore } from "@/adapters/zustand/store";
-import { ButtonSmall } from "@/components/atoms/buttonSmall";
-import { Button } from "@/components/Button";
+import { RecipeCardPage } from "@/components/pages/recipeCardPage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
@@ -34,6 +33,16 @@ export default function RecipeScreen() {
     router.replace("/");
   };
 
+  const handleNavigateToHome = () => {
+    router.replace("/");
+  };
+
+  const handleEditRecipe = () => {
+    router.push(`/recipe/${id}/edit`);
+  };
+
+  const recipeTitle = recipe.title || "New Recipe";
+
   const numberedInstructions = recipe.instructions
     ? recipe.instructions
         .split("\n")
@@ -41,24 +50,61 @@ export default function RecipeScreen() {
           line.trim() === "" ? "" : `${index + 1}. ${line}`,
         )
         .join("\n")
-    : "N/A";
+    : "No instructions";
+
+  const recipeIngredients =
+    recipe.ingredients.length > 0
+      ? recipe.ingredients.map((ingredient) => ({
+          title: `${ingredient.name} ${ingredient.quantity}${ingredient.unit}`,
+          isAvailable: false, // needs to be linked to checkboxes
+        }))
+      : [
+          {
+            title: "No ingredients",
+            isAvailable: true,
+          },
+        ];
 
   return (
-    <View style={styles.container}>
-      <Text>Details of recipe {id} </Text>
-      <Text>Title: {recipe.title}</Text>
-      <Text>Image: {recipe.image}</Text>
-      <Text>
-        Ingredients:{" "}
-        {recipe.ingredients.map((ingredient) => ingredient.name).join(", ")}
-      </Text>
-      <Text>Instructions: {numberedInstructions}</Text>
-      <Button
-        label="Edit Recipe"
-        onPress={() => router.push(`/recipe/${id}/edit`)}
-      />
-      <ButtonSmall variant={"delete"} onPress={handleDeleteRecipe} />
-    </View>
+    <RecipeCardPage
+      exit={{
+        variant: "back",
+        onPress: handleNavigateToHome,
+      }}
+      title={{
+        title: "RECIPE",
+        onLight: true,
+      }}
+      remove={{
+        variant: "delete",
+        onPress: handleDeleteRecipe,
+      }}
+      card={{
+        back: {
+          title: recipeTitle,
+          image: require("@/assets/images/RecipeImage1.png"), // will be replaced by alternating images
+        },
+        card: {
+          title: recipeTitle,
+          isAvailable: recipe.isAvailable,
+          isActive: false,
+        },
+      }}
+      content={{
+        ingredients: {
+          items: recipeIngredients,
+        },
+        instructions: {
+          instructions: numberedInstructions,
+        },
+        button: {
+          title: "Edit",
+          variant: "edit",
+          isActive: true,
+          onPress: handleEditRecipe,
+        },
+      }}
+    />
   );
 }
 
