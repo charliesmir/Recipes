@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     gap: 20,
-    width: 330,
+    width: 350,
     height: 100,
     borderRadius: 20,
     paddingHorizontal: 50,
