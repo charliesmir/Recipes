@@ -8,12 +8,13 @@ export const useStore = create<Store>()(
     (set, get) => ({
       recipes: [],
       addRecipe: () => {
-        const newRecipe = {
+        const newRecipe: Recipe = {
           id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
           title: "",
           image: "test image",
           ingredients: [],
           instructions: null,
+          isAvailable: false,
           isActive: false,
         };
         set({ recipes: [...get().recipes, newRecipe] });

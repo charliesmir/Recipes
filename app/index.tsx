@@ -21,7 +21,7 @@ export default function HomeScreen() {
           key={recipe.id}
           href={{ pathname: "/recipe/[id]", params: { id: recipe.id } }}
         >
-          <Text>{`Recipe ${recipe.id}`}</Text>
+          <Text>{`${recipe.title || "New Recipe"}`}</Text>
         </Link>
       ))}
       <Link href="./storybook">storybook</Link>

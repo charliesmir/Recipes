@@ -14,16 +14,16 @@ export type RecipeCardPageProps = {
   exit: ButtonSmallProps;
   title: PageTitleProps;
   remove: ButtonSmallProps;
-  content: RecipeInfoOutputProps;
   card: RecipeCardOutputProps;
+  content: RecipeInfoOutputProps;
 };
 
 export const RecipeCardPage = ({
   exit,
   title,
   content,
-  remove,
   card,
+  remove,
 }: RecipeCardPageProps) => (
   <ScrollView>
     <View style={styles.box}>

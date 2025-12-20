@@ -11,6 +11,7 @@ export type Recipe = {
   image: string;
   ingredients: Ingredient[];
   instructions: string | null;
+  isAvailable: boolean;
   isActive: boolean;
 };
 
