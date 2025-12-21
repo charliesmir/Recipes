@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     width: 85,
     minHeight: 45,
     backgroundColor: theme.colors.white,
+    zIndex: 1,
   },
   text: {
     fontFamily: theme.fontFamily.main,
