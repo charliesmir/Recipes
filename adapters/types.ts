@@ -1,3 +1,5 @@
+import { ImageSourcePropType } from "react-native";
+
 export interface Store {
   recipes: Recipe[];
   addRecipe: () => string;
@@ -8,18 +10,18 @@ export interface Store {
 export type Recipe = {
   id: string;
   title: string;
-  image: string;
+  image: ImageSourcePropType;
   ingredients: Ingredient[];
   instructions: string | null;
   isAvailable: boolean;
   isActive: boolean;
 };
 
-type Ingredient = {
+export type Ingredient = {
   id: string;
   name: string;
   quantity: number;
   unit: Unit;
 };
 
-type Unit = "g" | "kg" | "ml" | "l" | "pcs";
+export type Unit = "g" | "kg" | "ml" | "l" | "pcs";
