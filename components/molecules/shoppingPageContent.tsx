@@ -12,10 +12,8 @@ export const ShoppingPageContent = ({ list }: ShoppingPageContentProps) => (
       <ShoppingList {...list} />
       <View style={styles.note}>
         <Note
-          text={
-            "Mark everything you may already have in the fridge before shopping"
-          }
-          variant={"shoppingList"}
+          text="Mark everything you may already have in the fridge before shopping"
+          variant="shoppingList"
         />
       </View>
     </View>

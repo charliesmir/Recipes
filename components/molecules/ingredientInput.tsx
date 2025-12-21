@@ -24,7 +24,11 @@ export const IngredientInput = ({
     <View style={styles.bottomBox}>
       <InputQuantity {...quantity} />
       <View style={styles.buttonBox}>
-        <UnitSelector {...unit} />
+        <View style={styles.selectorAnchorBox}>
+          <View style={styles.selectorAnchor}>
+            <UnitSelector {...unit} />
+          </View>
+        </View>
         <ButtonSmall {...button} />
       </View>
     </View>
@@ -54,5 +58,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     width: 155,
+    height: 45,
+  },
+  selectorAnchorBox: {
+    position: "relative",
+  },
+  selectorAnchor: {
+    position: "absolute",
+    top: -23,
   },
 });
