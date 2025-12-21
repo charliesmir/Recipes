@@ -2,16 +2,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { Recipe, Store } from "../types";
+import { recipeImages } from "./placeholders";
 
 export const useStore = create<Store>()(
   persist(
     (set, get) => ({
       recipes: [],
       addRecipe: () => {
+        const randomImage =
+          recipeImages[Math.floor(Math.random() * recipeImages.length)];
         const newRecipe: Recipe = {
           id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
           title: "",
-          image: "test image",
+          image: randomImage,
           ingredients: [],
           instructions: null,
           isAvailable: false,

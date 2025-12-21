@@ -1,4 +1,5 @@
 import { useStore } from "@/adapters/zustand/store";
+import theme from "@/assets/theme/theme";
 import { RecipeCardPage } from "@/components/pages/recipeCardPage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
@@ -55,7 +56,11 @@ export default function RecipeScreen() {
   const recipeIngredients =
     recipe.ingredients.length > 0
       ? recipe.ingredients.map((ingredient) => ({
-          title: `${ingredient.name} ${ingredient.quantity}${ingredient.unit}`,
+          title: `${ingredient.name}${
+            ingredient.quantity > 0
+              ? ` ${ingredient.quantity}${ingredient.unit}`
+              : ""
+          }`,
           isAvailable: false, // needs to be linked to checkboxes
         }))
       : [
@@ -66,45 +71,47 @@ export default function RecipeScreen() {
         ];
 
   return (
-    <RecipeCardPage
-      exit={{
-        variant: "back",
-        onPress: handleNavigateToHome,
-      }}
-      title={{
-        title: "RECIPE",
-        onLight: true,
-      }}
-      remove={{
-        variant: "delete",
-        onPress: handleDeleteRecipe,
-      }}
-      card={{
-        back: {
-          title: recipeTitle,
-          image: require("@/assets/images/RecipeImage1.png"), // will be replaced by alternating images
-        },
-        card: {
-          title: recipeTitle,
-          isAvailable: recipe.isAvailable,
-          isActive: false,
-        },
-      }}
-      content={{
-        ingredients: {
-          items: recipeIngredients,
-        },
-        instructions: {
-          instructions: numberedInstructions,
-        },
-        button: {
-          title: "Edit",
-          variant: "edit",
-          isActive: true,
-          onPress: handleEditRecipe,
-        },
-      }}
-    />
+    <View style={styles.container}>
+      <RecipeCardPage
+        exit={{
+          variant: "back",
+          onPress: handleNavigateToHome,
+        }}
+        title={{
+          title: "RECIPE",
+          onLight: true,
+        }}
+        remove={{
+          variant: "delete",
+          onPress: handleDeleteRecipe,
+        }}
+        card={{
+          back: {
+            title: recipeTitle,
+            image: recipe.image,
+          },
+          card: {
+            title: recipeTitle,
+            isAvailable: recipe.isAvailable,
+            isActive: false,
+          },
+        }}
+        content={{
+          ingredients: {
+            items: recipeIngredients,
+          },
+          instructions: {
+            instructions: numberedInstructions,
+          },
+          button: {
+            title: "Edit",
+            variant: "edit",
+            isActive: true,
+            onPress: handleEditRecipe,
+          },
+        }}
+      />
+    </View>
   );
 }
 
@@ -112,6 +119,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "stretch",
+    backgroundColor: theme.colors.background,
   },
 });
