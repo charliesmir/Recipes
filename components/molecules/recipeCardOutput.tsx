@@ -12,9 +12,11 @@ export const RecipeCardOutput = ({ back, card }: RecipeCardOutputProps) => (
     <View style={styles.back}>
       <RecipeBack {...back} />
     </View>
-    <View style={styles.card}>
-      <RecipeCard {...card} />
-    </View>
+    {card.isActive === false && (
+      <View style={styles.card}>
+        <RecipeCard {...card} />
+      </View>
+    )}
   </View>
 );
 const styles = StyleSheet.create({
@@ -22,12 +24,12 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
+    height: 150,
   },
-  back: { position: "absolute" },
+  back: { position: "relative", top: 0, left: 0 },
   card: {
-    position: "relative",
-    top: 0,
-    left: 0,
+    position: "absolute",
+
     zIndex: 1,
   },
 });
