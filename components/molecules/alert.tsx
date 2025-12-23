@@ -45,6 +45,5 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.main,
     fontSize: theme.fontSize.main,
     color: theme.colors.primaryDark,
-    width: 170,
   },
 });

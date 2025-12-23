@@ -1,6 +1,7 @@
 import { Ingredient, Unit } from "@/adapters/types";
 import { useStore } from "@/adapters/zustand/store";
 import theme from "@/assets/theme/theme";
+import { Alert } from "@/components/molecules/alert";
 import { IngredientInputProps } from "@/components/molecules/ingredientInput";
 import { RecipeEditPage } from "@/components/pages/recipeEditPage";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -26,6 +27,8 @@ export default function EditScreen() {
   const handleBack = () => {
     router.replace(`/recipe/${id}`);
   };
+
+  const [showAlert, setShowAlert] = useState(false);
 
   const [recipeTitle, setRecipeTitle] = useState(recipe.title);
 
@@ -58,7 +61,6 @@ export default function EditScreen() {
     recipe.ingredients,
   );
 
-  // Needs refining
   const StringToNumber = (text: string) => {
     const normalizedText = text.trim().replace(",", "."); // needs to work with decimals
     if (normalizedText === "") return 0;
@@ -69,6 +71,23 @@ export default function EditScreen() {
   const [openUnitId, setOpenUnitId] = useState<string | null>(null);
   const [errorIngredientNameId, setErrorIngredientNameId] = useState<string[]>(
     [],
+  );
+  const [errorIngredientQuantityIds, setErrorIngredientQuantityIds] = useState<
+    string[]
+  >([]);
+
+  type IngredientQuantity = {
+    id: string;
+    quantity: string;
+  };
+
+  const [ingredientQuantities, setIngredientQuantities] = useState<
+    IngredientQuantity[]
+  >(
+    recipeIngredients.map((ingredient) => ({
+      id: ingredient.id,
+      quantity: ingredient.quantity === 0 ? "" : ingredient.quantity.toString(),
+    })),
   );
 
   const ingredientMap: IngredientInputProps[] = recipeIngredients.map(
@@ -87,17 +106,18 @@ export default function EditScreen() {
       },
       quantity: {
         title: "Quantity",
-        value: ingredient.quantity === 0 ? "" : ingredient.quantity.toString(), // needs refining
+        value:
+          ingredientQuantities.find(
+            (ingredientQuantity) => ingredientQuantity.id === ingredient.id,
+          )?.quantity || "",
         onChangeText: (text: string) => {
-          setRecipeIngredients((prev) =>
+          setIngredientQuantities((prev) =>
             prev.map((item) =>
-              item.id === ingredient.id
-                ? { ...item, quantity: StringToNumber(text) }
-                : item,
+              item.id === ingredient.id ? { ...item, quantity: text } : item,
             ),
           );
         },
-        isError: false,
+        isError: errorIngredientQuantityIds.includes(ingredient.id),
       },
       unit: {
         selectedOption: ingredient.unit,
@@ -125,6 +145,9 @@ export default function EditScreen() {
           setRecipeIngredients((prev) =>
             prev.filter((item) => item.id !== ingredient.id),
           );
+          setIngredientQuantities((prev) =>
+            prev.filter((item) => item.id !== ingredient.id),
+          );
         },
       },
     }),
@@ -137,8 +160,17 @@ export default function EditScreen() {
     unit: "g",
   };
 
+  const newIngredientQuantity: IngredientQuantity = {
+    id: newIngredient.id,
+    quantity: newIngredient.quantity.toString(),
+  };
+
   const handleAddNewIngredient = () => {
     setRecipeIngredients((ingredients) => [...ingredients, newIngredient]);
+    setIngredientQuantities((ingredientQuantities) => [
+      ...ingredientQuantities,
+      newIngredientQuantity,
+    ]);
   };
 
   const checkIngredients = (ingredients: Ingredient[]) => {
@@ -147,21 +179,49 @@ export default function EditScreen() {
       .map((ingredient) => ingredient.id);
   };
 
+  const isValidNumber = (quantity: string): boolean => {
+    const value = quantity.trim();
+    if (value === "") return true;
+    return /^\d+([.,]\d+)?$/.test(value);
+  };
+
+  const checkQuantities = (ingredients: IngredientQuantity[]) => {
+    return ingredients
+      .filter((ingredient) => !isValidNumber(ingredient.quantity))
+      .map((ingredient) => ingredient.id);
+  };
+
   const handleSave = () => {
     const trimmedTitle = recipeTitle.trim();
     const trimmedInstructions = recipeInstructions.trim();
     const missingIngredientNameIds = checkIngredients(recipeIngredients);
     setErrorIngredientNameId(missingIngredientNameIds);
+    const incorrectIngredientQuantitiesIds =
+      checkQuantities(ingredientQuantities);
+    setErrorIngredientQuantityIds(incorrectIngredientQuantitiesIds);
 
-    if (missingIngredientNameIds.length > 0) {
-      // Add modal
+    if (
+      missingIngredientNameIds.length > 0 ||
+      incorrectIngredientQuantitiesIds.length > 0
+    ) {
+      setShowAlert(true);
       return;
     }
+
+    const updatedIngredients = recipeIngredients.map((ingredient) => {
+      const quantity =
+        ingredientQuantities.find((item) => item.id === ingredient.id)
+          ?.quantity ?? "";
+      return {
+        ...ingredient,
+        quantity: StringToNumber(quantity),
+      };
+    });
 
     updateRecipe(recipe.id, {
       title: trimmedTitle,
       instructions: trimmedInstructions === "" ? null : trimmedInstructions,
-      ingredients: recipeIngredients,
+      ingredients: updatedIngredients,
     });
 
     router.replace(`/recipe/${id}`);
@@ -201,6 +261,18 @@ export default function EditScreen() {
           },
         }}
       />
+      {showAlert && (
+        <View style={styles.alert}>
+          <Alert
+            title="Something went wrong..."
+            text="Ingredient information is incorrect"
+            button={{
+              variant: "back",
+              onPress: () => setShowAlert(false),
+            }}
+          />
+        </View>
+      )}
     </KeyboardAwareScrollView>
   );
 }
@@ -211,5 +283,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "stretch",
     backgroundColor: theme.colors.background,
+  },
+  alert: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#00000099",
+    zIndex: 1,
   },
 });
