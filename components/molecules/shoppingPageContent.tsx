@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    minHeight: 520,
+    minHeight: 450,
     width: 380,
   },
   note: {

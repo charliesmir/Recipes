@@ -23,4 +23,7 @@ export const Available: Story = {
       isActive: false,
     },
   },
+  render: (args) => {
+    return <RecipeCardOutput {...args} onDrop={() => alert("Dropped")} />;
+  },
 };

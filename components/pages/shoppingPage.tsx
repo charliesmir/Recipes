@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 35,
     width: 360,
-    marginVertical: 50,
+    marginTop: 50,
+    marginBottom: 100,
     alignSelf: "center",
   },
   topBox: {

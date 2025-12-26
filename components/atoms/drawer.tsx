@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   box: {
     alignSelf: "center",
     width: "100%",
-    marginTop: 500,
   },
   card: {
     position: "absolute",

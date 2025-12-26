@@ -5,7 +5,6 @@ import { Flag } from "./flag";
 type BaseRecipeCardProps = {
   title: string;
   isAvailable: boolean;
-  onDrag?: () => void;
 };
 
 type ActiveRecipeCardProps = {
@@ -38,7 +37,6 @@ export const RecipeCard = ({
   title,
   isAvailable,
   isActive,
-  onDrag, // will be used in the future for dragging the card in the shopping list
 }: RecipeCardProps) => {
   return (
     <View style={styles.box}>

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { MenuPage } from "./menuPage";
-import { RecipeCardProps } from "../atoms/recipeCard";
 
 const meta = {
   title: "Pages/MenuPage",
