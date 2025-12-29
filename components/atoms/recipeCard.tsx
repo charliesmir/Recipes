@@ -1,5 +1,5 @@
 import theme from "@/assets/theme/theme";
-import { View, Text, Switch, StyleSheet } from "react-native";
+import { View, Text, Switch, StyleSheet, Pressable } from "react-native";
 import { Flag } from "./flag";
 
 type BaseRecipeCardProps = {
@@ -11,12 +11,14 @@ type ActiveRecipeCardProps = {
   isActive: true;
   switchValue: boolean;
   toggleSwitch: (value: boolean) => void;
+  onPress?: () => void;
 };
 
 type InactiveRecipeCardProps = {
   isActive?: false;
   switchValue?: never;
   toggleSwitch?: never;
+  onPress?: never;
 };
 
 export type RecipeCardProps = BaseRecipeCardProps &
@@ -37,9 +39,10 @@ export const RecipeCard = ({
   title,
   isAvailable,
   isActive,
+  onPress,
 }: RecipeCardProps) => {
   return (
-    <View style={styles.box}>
+    <Pressable style={styles.box} onPress={onPress}>
       <Text style={[styles.title, { color: Availability(isAvailable).color }]}>
         {title}
       </Text>
@@ -61,7 +64,7 @@ export const RecipeCard = ({
           />
         )}
       </View>
-    </View>
+    </Pressable>
   );
 };
 const styles = StyleSheet.create({
