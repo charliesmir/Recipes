@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { Recipe, Store } from "../types";
+import { Recipe, ShoppingListItem, Store } from "../types";
 import { recipeImages } from "./placeholders";
 
 export const useStore = create<Store>()(
@@ -30,6 +30,19 @@ export const useStore = create<Store>()(
         set({
           recipes: get().recipes.map((recipe) =>
             recipe.id === id ? { ...recipe, ...updatedFields } : recipe,
+          ),
+        });
+      },
+      shoppingList: [],
+      updateShoppingList: (
+        id: string,
+        updatedFields: Partial<ShoppingListItem>,
+      ) => {
+        set({
+          shoppingList: get().shoppingList.map((shoppingListItem) =>
+            shoppingListItem.id === id
+              ? { ...shoppingListItem, ...updatedFields }
+              : shoppingListItem,
           ),
         });
       },

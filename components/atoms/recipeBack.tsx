@@ -6,15 +6,17 @@ import {
   ImageBackground,
   Image,
   ImageSourcePropType,
+  Pressable,
 } from "react-native";
 
 export type RecipeBackProps = {
   image: ImageSourcePropType;
   title: string;
+  onPress?: () => void;
 };
 
-export const RecipeBack = ({ image, title }: RecipeBackProps) => (
-  <View style={styles.box}>
+export const RecipeBack = ({ image, title, onPress }: RecipeBackProps) => (
+  <Pressable style={styles.box} onPress={onPress}>
     <Image source={image} style={styles.image} />
     <View style={styles.line} />
     <ImageBackground
@@ -23,7 +25,7 @@ export const RecipeBack = ({ image, title }: RecipeBackProps) => (
     >
       <Text style={styles.text}>{title}</Text>
     </ImageBackground>
-  </View>
+  </Pressable>
 );
 
 const styles = StyleSheet.create({

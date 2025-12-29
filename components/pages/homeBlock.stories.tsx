@@ -26,6 +26,7 @@ export const Short: Story = {
           back: {
             title: "Recipe Title",
             image: require("@/assets/images/RecipeImage1.png"),
+            onPress: () => alert("Pressed"),
           },
           card: {
             title: "Name of the recipe",
@@ -37,6 +38,7 @@ export const Short: Story = {
           back: {
             title: "Recipe Title",
             image: require("@/assets/images/RecipeImage1.png"),
+            onPress: () => alert("Pressed"),
           },
           card: {
             title: "Name of the recipe",
@@ -50,6 +52,7 @@ export const Short: Story = {
           back: {
             title: "Recipe Title",
             image: require("@/assets/images/RecipeImage1.png"),
+            onPress: () => alert("Pressed"),
           },
           card: {
             title: "Name of the recipe",
@@ -63,6 +66,7 @@ export const Short: Story = {
           back: {
             title: "Recipe Title",
             image: require("@/assets/images/RecipeImage1.png"),
+            onPress: () => alert("Pressed"),
           },
           card: {
             title: "Name of the recipe",

@@ -1,4 +1,10 @@
-import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  Dimensions,
+} from "react-native";
 import { PageTitle, PageTitleProps } from "../atoms/pageTitle";
 import {
   WeekMenuButtons,
@@ -14,6 +20,8 @@ export type MenuPageProps = {
   cards: RecipeCardProps[];
   onCloseRequest?: () => void;
 };
+
+const screenHeight = Dimensions.get("window").height;
 
 export const MenuPage = ({
   title,
@@ -65,6 +73,7 @@ const styles = StyleSheet.create({
   },
   scrollBox: {
     top: -110,
+    minHeight: screenHeight,
     backgroundColor: theme.colors.primaryMedium,
   },
   box: {
